@@ -15,7 +15,7 @@ Create a new project.
 mkdir showdrivedocument
 cd showdrivedocument
 npm init -y
-npm i --save google-document-loader
+npm install --save google-document-loader
 ```
 
 Next go to the Google Developer Console (https://console.developers.google.com) and create a new project, a OAuth Client Id and activate the Drive API (see https://developers.google.com/drive/v3/web/quickstart/js).
@@ -48,7 +48,7 @@ and a index.html
 ```
 <html>
 <body>
-  <script src="./test.js"></script>
+  <script src="./index.js"></script>
   <button id="loadButton">Load</button>
   <div id="viewer" />
 </body>
