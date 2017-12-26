@@ -20,9 +20,9 @@ npm install --save-dev babel-plugin-add-module-exports
 npm install --save-dev babel-preset-es2015
 ```
 
-Next go to the Google Developer Console (https://console.developers.google.com)
+Next go to the Google Developer Console ([Google Developer Console](https://console.developers.google.com))
 and create a new project, a OAuth Client Id and activate the Drive API
-(see https://developers.google.com/drive/v3/web/quickstart/js).
+(see [Google Drive REST API Quickstart](https://developers.google.com/drive/v3/web/quickstart/js)).
 
 Now create an index.js file. Replace <INSERT_CLIENT_ID> with your created
 Google Client Id. Replace <INSERT_DOCUMENT_ID> with the Id from the Google
