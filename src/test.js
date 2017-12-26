@@ -8,11 +8,11 @@ let options = {
   ]
 };
 
-let loadDocument = new GoogleLoadDocument(options);
-document.getElementById('loadButton').onclick=btLoadDoc;
 
-function btLoadDoc() {
-  loadDocument.getDocument('0B-K7oJWHTbZ8SDBwSDRKa2I0bms', function(body) {
+let loadDocument = new GoogleLoadDocument(options);
+document.getElementById('loadButton').onclick=function() {
+  loadDocument.getDocument('0B-K7oJWHTbZ8RjZ0LWhEM3JQbm8', function(body) {
     document.getElementById('viewer').innerHTML=body;
   });
-}
+
+};
