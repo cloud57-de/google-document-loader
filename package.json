@@ -1,10 +1,14 @@
 {
   "name": "google-document-loader",
   "version": "1.0.0",
-  "description": "",
+  "description": "A node module for simple download a google drive document",
   "main": "./src/index.js",
   "scripts": {
     "test": "parcel ./src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloud57-de/google-document-loader.git"
   },
   "keywords": [],
   "author": "Dirk Guenther <developer@cloud57.de> (https://www.cloud57.de)",
