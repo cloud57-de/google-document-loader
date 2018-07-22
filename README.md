@@ -1,6 +1,9 @@
 # google-document-loader
 A node module for simple download a google drive document.
 
+## Changes in 2.0
+Since 2.0 promises are used instead of callbacks.
+
 ## Usage
 
 This sample uses parcel as bundler. Install parcel with
@@ -41,8 +44,11 @@ let options = {
 
 let loadDocument = new GoogleLoadDocument(options);
 document.getElementById('loadButton').onclick=function() {
-  loadDocument.getDocument('<INSERT_DOCUMENT_ID>', function(body) {
+  loadDocument.getDocument('<INSERT_DOCUMENT_ID>').then((body) => {
     document.getElementById('viewer').innerHTML=body;
+  },
+  (reason) => {
+    alert('Error:' + reason);
   });
 };
 ```
