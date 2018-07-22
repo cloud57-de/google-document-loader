@@ -3,41 +3,81 @@ import LoadGoogleApi from "load-google-api";
 
 class GoogleLoadDocument {
 
-    constructor(options) {
-      this.drive = new LoadGoogleApi(options);
-    }
 
+  constructor(options) {
+    this.drive = new LoadGoogleApi(options);
+  }
 
-    getDocument(id, callback) {
-      this.drive.loadGoogleAPI().then(() => {
-        this.drive.init().then(() => {
-          window.auth = window.gapi.auth2.getAuthInstance();
-        }).then(() => {
-          this.login(id, callback);
-        });
+  
+
+  login(id) {
+    var loadDocument = function(id) {
+      return new Promise(function (resolve, reject) {
+        gapi.client.request({ 'path': 'https://www.googleapis.com/drive/v3/files/' + id, 'params': { 'alt': 'media' } })
+          .then(function (response) {
+            resolve(response.body);
+          },
+          (reason) => {
+            reject(reason);
+          });
       });
-    }
+    };
 
-    login(id, callback) {
+    return new Promise(function (resolve, reject) {
       if (auth.currentUser.get() == undefined || !auth.currentUser.get().isSignedIn()) {
-      auth.signIn().then((user) => {
-        console.log(auth.currentUser.get());
-        auth.currentUser=user;
-        this.loadDocument(id, callback);
-      });
+        auth.signIn().then((user) => {
+          auth.currentUser = user;
+          loadDocument(id).then((filecontent) => {
+            resolve(filecontent);
+          },
+          (reason) => {
+            reject(reason);
+          });
+        },
+          (reason) => {
+            reject(reason);
+          });
       }
       else {
-        this.loadDocument(id, callback);
-      }
-    }
-
-    loadDocument(id, callback) {
-      console.log(id);
-      gapi.client.request({'path': 'https://www.googleapis.com/drive/v3/files/' + id, 'params': {'alt':'media'}})
-        .then(function(response) {
-          callback(response.body);
+        loadDocument(id).then((filecontent) => {
+          resolve(filecontent);
+        },
+        (reason) => {
+          reject(reason);
         });
-    }
+      }
+    });
+  }
+
+  getDocument(id) {
+    var drive = this.drive;
+    var login = this.login;
+    return new Promise(function (resolve, reject) {
+      drive.loadGoogleAPI().then(() => {
+        drive.init().then(() => {
+          window.auth = window.gapi.auth2.getAuthInstance();
+        },
+          (reason) => {
+            reject(reason);
+          }).then(() => {
+            login(id).then((filecontent) => {
+              resolve(filecontent);
+            },
+            (reason) => {
+              reject(reason);
+            });
+          },
+            (reason) => {
+              reject(reason);
+            });
+      },
+        (reason) => {
+          reject(reason);
+        });
+    });
+  }
+
+
 
 }
 
